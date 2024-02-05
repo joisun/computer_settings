@@ -1,0 +1,9 @@
+# path: %userprofile%/.wslconfig
+
+[experimental]
+autoMemoryReclaim=gradual  # gradual  | dropcache | disabled
+networkingMode=mirrored
+dnsTunneling=true
+firewall=true
+autoProxy=true
+hostAddressLoopback=true // 关键配置，解决从windows无法通过wsl中web服务ip 访问的问题
