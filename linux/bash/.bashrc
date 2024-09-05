@@ -116,19 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# 配置代理
-#export https_proxy="http://${hostip}:7890"
-#export http_proxy="http://${hostip}:7890"
-#export all_proxy="socks5://${hostip}:7890"
 
-# 获取wsl虚拟机的ip， 并代理至windows 7890 端口，让wsl可以访问外网
-echo "设定wsl网络代理到7890外网访问端口......"
-
-#host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
-#export ALL_PROXY="http://$host_ip:7890"
-# curl 命令检查，并仅输出状态码
-echo "尝试通过curl命令检查 google 是否可以访问......返回状态码为："
-curl -s -o /dev/null -w "%{http_code}\n" https://www.google.com
 
 
 export NVM_DIR="$HOME/.nvm"
@@ -142,3 +130,25 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# 配置代理
+#export https_proxy="http://${hostip}:7890"
+#export http_proxy="http://${hostip}:7890"
+#export all_proxy="socks5://${hostip}:7890"
+
+# 获取wsl虚拟机的ip， 并代理至windows 7890 端口，让wsl可以访问外网
+# echo "设定wsl网络代理到7890外网访问端口......"
+
+
+# 获取wsl虚拟机的ip， 并代理至windows 7890 端口，让wsl可以访问外网8echo "设定wsl网络代理到7890外网访问端口......"
+echo "设定wsl网络代理到7890外网访问端口......"
+host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+export ALL_PROXY="http://$host_ip:7890"
+# curl 命令检查，并仅输出状态码
+echo "尝试通过curl命令检查 google 是否可以访问......返回状态码为："
+status_code=$(curl -s -o /dev/null -w "%{http_code}\n" https://www.google.com)
+echo $status_code
+if [[ $status_code == "000" ]]; then
+        echo "请求状态码为000，清除ALL_PROXY环境变量..."
+        unset ALL_PROXY
+fi
