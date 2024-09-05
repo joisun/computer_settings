@@ -6,4 +6,4 @@ networkingMode=mirrored
 dnsTunneling=true
 firewall=true
 autoProxy=true
-hostAddressLoopback=true // 关键配置，解决从windows无法通过wsl中web服务ip 访问的问题
+hostAddressLoopback=true // 关键配置，解决 wsl web服务不可通过宿主机 ip 访问的问题 https://learn.microsoft.com/en-us/windows/wsl/wsl-config#experimental-settings
